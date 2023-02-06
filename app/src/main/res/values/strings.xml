@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Pixabay</string>
+    <string name="loading_failed">Failed to load</string>
+    <string name="retry">Retry</string>
+    <string name="loading">Loading</string>
+    <string name="pixabay_photo">Pixabay photo</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="user_heading">User:</string>
+    <string name="tags_heading">Tags:</string>
+    <string name="likes_heading">Likes:</string>
+    <string name="downloads_heading">Downloads:</string>
+    <string name="comments_heading">Comments:</string>
+
+    <string name="search_appbar_search_icon">SearchAppBarSearchIcon</string>
+    <string name="search_appbar_close_icon">SearchAppBarCloseIcon</string>
+    <string name="search_floating_action_button">SearchFloatingActionButton</string>
+
+</resources>

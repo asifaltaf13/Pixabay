@@ -9,6 +9,9 @@
 # You will need an API key for the Pixabay public web services. It can be retrieved from this page (you must be logged in to see it):
 'https://pixabay.com/api/docs/#api_search_images'  
 Please put your `API_KEY` in "local.properties" file which should be located in the root directory. 
+Example of how the line of code looks like: 
+
+API_KEY=87654321-0d123456789dc12b345678cf9
 ```  
 That's all you need to know to start! 🎉
 

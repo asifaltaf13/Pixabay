@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PixabayResponse(
-    @SerialName("total") var total: Int? = null,
-    @SerialName("totalHits") var totalHits: Int? = null,
-    @SerialName("hits") var photos: List<PixabayPhoto> = arrayListOf()
+    @SerialName("total") val total: Int? = null,
+    @SerialName("totalHits") val totalHits: Int? = null,
+    @SerialName("hits") val photos: List<PixabayPhoto> = arrayListOf()
 )

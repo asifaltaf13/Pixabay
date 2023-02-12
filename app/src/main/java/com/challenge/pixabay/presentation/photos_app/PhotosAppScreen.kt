@@ -41,44 +41,34 @@ fun PhotosAppScreen(
         else -> AppContentType.LIST_ONLY
     }
 
-    Scaffold(
-        modifier = modifier.fillMaxSize(),
-        topBar = {
-            MainAppBar(
-                searchWidgetState = uiState.searchWidgetState,
-                searchTextState = uiState.searchTerm,
-                onTextChange = {
-                    viewModel.updateSearchTermState(searchTerm = it)
-                },
-                onCloseClicked = {
-                    viewModel.updateSearchTermState(searchTerm = "")
-                    viewModel.updateSearchWidgetState(searchWidgetState = SearchWidgetState.CLOSED)
-                },
-                onSearchClicked = {
-                    Log.d("SearchTerm (input): ", it)
-                    viewModel.getPhotos(it)
-                },
-                onSearchTriggered = {
-                    viewModel.updateSearchWidgetState(searchWidgetState = SearchWidgetState.OPENED)
-                }
-            )
-        },
-        floatingActionButton = {
-            SearchFloatingActionButton(
-                onSearchClicked = {
-                    viewModel.updateSearchWidgetState(searchWidgetState = SearchWidgetState.OPENED)
-                }
-            )
-        }
-    ) {
+    Scaffold(modifier = modifier.fillMaxSize(), topBar = {
+        MainAppBar(searchWidgetState = uiState.searchWidgetState,
+            searchTextState = uiState.searchTerm,
+            onTextChange = {
+                viewModel.updateSearchTermState(searchTerm = it)
+            },
+            onCloseClicked = {
+                viewModel.updateSearchTermState(searchTerm = "")
+                viewModel.updateSearchWidgetState(searchWidgetState = SearchWidgetState.CLOSED)
+            },
+            onSearchClicked = {
+                Log.d("SearchTerm (input): ", it)
+                viewModel.getPhotos(it)
+            },
+            onSearchTriggered = {
+                viewModel.updateSearchWidgetState(searchWidgetState = SearchWidgetState.OPENED)
+            })
+    }, floatingActionButton = {
+        SearchFloatingActionButton(onSearchClicked = {
+            viewModel.updateSearchWidgetState(searchWidgetState = SearchWidgetState.OPENED)
+        })
+    }) {
         Surface(
             modifier = Modifier
                 .padding(it)
-                .fillMaxSize(),
-            color = MaterialTheme.colors.background
+                .fillMaxSize(), color = MaterialTheme.colors.background
         ) {
-            PhotoListScreen(
-                contentType = contentType,
+            PhotoListScreen(contentType = contentType,
                 uiState = uiState,
                 onPhotoCardClick = { photo: IPhoto ->
                     viewModel.onOpenDialogClicked(photo = photo)
@@ -98,8 +88,7 @@ fun PhotosAppScreen(
         }
     }
 
-    OnLifecycleEvent{ _, event ->
-        if (event == Lifecycle.Event.ON_RESUME && uiState.requestStatus is IRequestStatus.Error)
-            viewModel.tryAgainGetPhotos()
+    OnLifecycleEvent { _, event ->
+        if (event == Lifecycle.Event.ON_RESUME && uiState.requestStatus is IRequestStatus.Error) viewModel.tryAgainGetPhotos()
     }
 }

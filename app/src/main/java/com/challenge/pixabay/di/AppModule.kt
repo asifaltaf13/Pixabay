@@ -83,7 +83,7 @@ class AppModule : IAppModule {
                 Log.d(TAG, "called.")
 
                 when (PixabayApplication.instance.hasNetwork()) {
-                    true -> {
+                    false -> {
                         val cacheControl = CacheControl.Builder()
                             .maxStale(7, TimeUnit.DAYS)
                             .build()

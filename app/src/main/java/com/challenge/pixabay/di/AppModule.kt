@@ -1,14 +1,14 @@
 package com.challenge.pixabay.di
 
 import android.util.Log
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.challenge.pixabay.PixabayApplication
 import com.challenge.pixabay.common.Constants.BASE_URL
 import com.challenge.pixabay.common.Constants.cacheSize
 import com.challenge.pixabay.data.common.Constants
+import com.challenge.pixabay.data.remote.IPixabayApi
 import com.challenge.pixabay.data.repository.PhotosRepository
 import com.challenge.pixabay.domain.repository.IPhotosRepository
-import com.challenge.pixabay.data.remote.IPixabayApi
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -27,7 +27,7 @@ class AppModule : IAppModule {
         retrofit().create(IPixabayApi::class.java)
     }
 
-    private fun retrofit() : Retrofit {
+    private fun retrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient())
@@ -35,7 +35,7 @@ class AppModule : IAppModule {
             .build()
     }
 
-    private fun okHttpClient() : OkHttpClient {
+    private fun okHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .cache(cache())
             .addInterceptor(httpLoggingInterceptor())
@@ -49,9 +49,8 @@ class AppModule : IAppModule {
     }
 
     private fun httpLoggingInterceptor(): HttpLoggingInterceptor {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        return httpLoggingInterceptor
+        return HttpLoggingInterceptor()
+            .setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
 
@@ -80,27 +79,27 @@ class AppModule : IAppModule {
         class OfflineInterceptor : Interceptor {
             private val TAG = "OfflineInterceptor"
 
-
             override fun intercept(chain: Interceptor.Chain): Response {
                 Log.d(TAG, "called.")
 
+                when (PixabayApplication.instance.hasNetwork()) {
+                    false -> {
+                        val cacheControl = CacheControl.Builder()
+                            .maxStale(7, TimeUnit.DAYS)
+                            .build()
 
-                var request = chain.request()
+                        val cachedRequest = chain.request().newBuilder()
+                            .removeHeader(Constants.HEADER_PRAGMA)
+                            .removeHeader(Constants.HEADER_CACHE_CONTROL)
+                            .cacheControl(cacheControl)
+                            .build()
 
-                if(!PixabayApplication.instance.hasNetwork())
-                {
-                    val cacheControl = CacheControl.Builder()
-                        .maxStale(7, TimeUnit.DAYS)
-                        .build()
-
-                    request = request.newBuilder()
-                        .removeHeader(Constants.HEADER_PRAGMA)
-                        .removeHeader(Constants.HEADER_CACHE_CONTROL)
-                        .cacheControl(cacheControl)
-                        .build()
+                        return chain.proceed(cachedRequest)
+                    }
+                    else -> {
+                        return chain.proceed(chain.request())
+                    }
                 }
-
-                return chain.proceed(request)
             }
         }
     }

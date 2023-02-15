@@ -29,8 +29,8 @@ fun DefaultAppBar(
                 Icon(
                     imageVector = Icons.Filled.Search,
                     contentDescription = stringResource(R.string.search_icon),
-                    modifier = Modifier.testTag(TestTags.DefaultAppBar)
-                    //tint = MaterialTheme.colors.secondary
+                    modifier = Modifier.testTag(TestTags.DefaultAppBar),
+                    tint = MaterialTheme.colors.primary
                 )
             }
         },

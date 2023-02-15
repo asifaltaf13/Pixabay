@@ -1,11 +1,13 @@
 package com.challenge.pixabay.data.remote.dto
 
+import androidx.annotation.Keep
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Keep
 @Serializable
 data class PixabayPhoto(
-    //overridden
+    // overridden
     @SerialName("id") override var id: Int?,
     @SerialName("tags") override var tags: String? = null,
     @SerialName("previewURL") override var previewURL: String? = null,
@@ -18,7 +20,7 @@ data class PixabayPhoto(
     @SerialName("likes") override var likes: Int? = null,
     @SerialName("comments") override var comments: Int? = null,
     @SerialName("user") override var user: String? = null,
-    //rest
+    // rest
     @SerialName("pageURL") var pageURL: String? = null,
     @SerialName("type") var type: String? = null,
     @SerialName("webformatURL") var webformatURL: String? = null,

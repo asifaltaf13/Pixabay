@@ -8,14 +8,19 @@ plugins {
 android {
     // Loading the local properties
     Properties localProperties = new Properties()
-    localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+    def fileName = "local.properties"
+    def localPropertiesFile = rootProject.file(fileName)
+
+    if (localPropertiesFile.exists()) {
+        localProperties.load(rootProject.file(fileName).newDataInputStream())
+    }
 
     signingConfigs {
         release {
-            storeFile file(localProperties['STORE_FILE'])
-            storePassword localProperties['STORE_PASSWORD']
-            keyPassword localProperties['KEY_PASSWORD']
             keyAlias localProperties['KEY_ALIAS']
+            keyPassword localProperties['KEY_PASSWORD']
+            storeFile localProperties['STORE_FILE'] ? file(localProperties['STORE_FILE']) : null
+            storePassword localProperties['STORE_PASSWORD']
         }
     }
     namespace 'com.challenge.pixabay'
@@ -39,11 +44,15 @@ android {
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             debuggable false
+            if(localPropertiesFile.exists()){
+                signingConfig signingConfigs.release
+            } else {
+                signingConfig signingConfigs.debug
+            }
         }
     }
 

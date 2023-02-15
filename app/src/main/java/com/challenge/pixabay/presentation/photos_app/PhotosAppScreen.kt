@@ -28,9 +28,8 @@ import com.challenge.pixabay.presentation.photos_list.PhotoListScreen
 @Composable
 fun PhotosAppScreen(
     windowSize: WindowWidthSizeClass,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
-
     val viewModel: AppViewModel = viewModel(factory = AppViewModel.Factory)
     val uiState: AppUiState by viewModel.uiState.collectAsState()
 
@@ -92,14 +91,15 @@ fun PhotosAppScreen(
 
             ConfirmationAlertDialog(
                 show = uiState.showDialog,
-                onDismiss = viewModel::onDialogDismiss, //passing function as a lambda
+                onDismiss = viewModel::onDialogDismiss, // passing function as a lambda
                 onConfirm = viewModel::onDialogConfirm
             )
         }
     }
 
-    OnLifecycleEvent{ _, event ->
-        if (event == Lifecycle.Event.ON_RESUME && uiState.requestStatus is IRequestStatus.Error)
+    OnLifecycleEvent { _, event ->
+        if (event == Lifecycle.Event.ON_RESUME && uiState.requestStatus is IRequestStatus.Error) {
             viewModel.tryAgainGetPhotos()
+        }
     }
 }

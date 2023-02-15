@@ -6,4 +6,3 @@ interface IPhotosRepository {
     suspend fun getPhotos(searchTerm: String): List<IPhoto>
     fun getDefaultPhoto(): IPhoto
 }
-

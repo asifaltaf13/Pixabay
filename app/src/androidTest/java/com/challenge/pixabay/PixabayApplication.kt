@@ -6,9 +6,9 @@ import coil.ImageLoaderFactory
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import coil.request.CachePolicy
-import com.google.android.material.color.DynamicColors
 import com.challenge.pixabay.di.IAppModule
 import com.challenge.pixabay.di.TestAppModule
+import com.google.android.material.color.DynamicColors
 
 class PixabayApplication : Application(), ImageLoaderFactory {
 

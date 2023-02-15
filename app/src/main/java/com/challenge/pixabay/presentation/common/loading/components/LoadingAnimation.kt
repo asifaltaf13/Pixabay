@@ -17,9 +17,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun LoadingAnimation(
-    modifier: Modifier = Modifier,
-    indicatorSize: Dp = 32.dp,
-    circleColors: List<Color> = listOf(
+    modifier: Modifier = Modifier, indicatorSize: Dp = 32.dp, circleColors: List<Color> = listOf(
         Color(0xFF5851D8),
         Color(0xFF833AB4),
         Color(0xFFC13584),
@@ -30,19 +28,14 @@ fun LoadingAnimation(
         Color(0xFFFCAF45),
         Color(0xFFFFDC80),
         Color(0xFF5851D8)
-    ),
-    animationDuration: Int = 360
+    ), animationDuration: Int = 360
 ) {
-
     val infiniteTransition = rememberInfiniteTransition()
 
     val rotateAnimation by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec = infiniteRepeatable(
+        initialValue = 0f, targetValue = 360f, animationSpec = infiniteRepeatable(
             animation = tween(
-                durationMillis = animationDuration,
-                easing = LinearEasing
+                durationMillis = animationDuration, easing = LinearEasing
             )
         )
     )
@@ -52,9 +45,7 @@ fun LoadingAnimation(
             .size(size = indicatorSize)
             .rotate(degrees = rotateAnimation)
             .border(
-                width = 4.dp,
-                brush = Brush.sweepGradient(circleColors),
-                shape = CircleShape
+                width = 4.dp, brush = Brush.sweepGradient(circleColors), shape = CircleShape
             ),
         progress = 1f,
         strokeWidth = 1.dp,

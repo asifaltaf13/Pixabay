@@ -6,6 +6,18 @@ plugins {
 }
 
 android {
+    // Loading the local properties
+    Properties localProperties = new Properties()
+    localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    signingConfigs {
+        release {
+            storeFile file(localProperties['STORE_FILE'])
+            storePassword localProperties['STORE_PASSWORD']
+            keyPassword localProperties['KEY_PASSWORD']
+            keyAlias localProperties['KEY_ALIAS']
+        }
+    }
     namespace 'com.challenge.pixabay'
     compileSdk 33
 
@@ -22,31 +34,36 @@ android {
         }
 
         // Loading the Pixabay API Key from Local Properties into Build Configurations
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        buildConfigField "String", "API_KEY", "\"${properties.getProperty("API_KEY")}\""
+        buildConfigField "String", "API_KEY", "\"${localProperties.getProperty("API_KEY")}\""
     }
 
     buildTypes {
         release {
-            minifyEnabled true
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             debuggable false
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         compose true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion '1.4.0'
     }
+
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'

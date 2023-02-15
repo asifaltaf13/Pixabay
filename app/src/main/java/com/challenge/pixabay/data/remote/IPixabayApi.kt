@@ -16,7 +16,7 @@ interface IPixabayApi {
         @Query("q") searchTerm: String = defaultSearchTerm,
         @Query("image_type") imageType: String = Constants.imageType,
         @Query("order") order: String = Constants.order,
-        @Query("per_page") perPage: Int = Constants.perPage,
-        //@Query("orientation") orientation: String = "horizontal"
+        @Query("per_page") perPage: Int = Constants.perPage
+        // @Query("orientation") orientation: String = "horizontal"
     ): Response<PixabayResponse>
 }

@@ -19,17 +19,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.challenge.pixabay.domain.model.IPhoto
 import com.challenge.pixabay.R
 import com.challenge.pixabay.common.TestTags
+import com.challenge.pixabay.domain.model.IPhoto
 import com.challenge.pixabay.presentation.common.loading.Loading
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ImageCard(
-    photo: IPhoto,
-    onCardClick: () -> Unit,
-    modifier: Modifier = Modifier
+    photo: IPhoto, onCardClick: () -> Unit, modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier
@@ -37,26 +35,23 @@ fun ImageCard(
             .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         elevation = 4.dp,
-        onClick = onCardClick,
+        onClick = onCardClick
     ) {
-        Box(modifier = Modifier
-            .height(200.dp)
-            .width(300.dp),
-            contentAlignment = Alignment.Center
+        Box(
+            modifier = Modifier
+                .height(200.dp)
+                .width(300.dp), contentAlignment = Alignment.Center
         ) {
             Loading()
 
             AsyncImage(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(photo.previewURL)
-                    .crossfade(true)
-                    .build(),
+                modifier = Modifier.fillMaxWidth(),
+                model = ImageRequest.Builder(context = LocalContext.current).data(photo.previewURL)
+                    .crossfade(true).build(),
                 contentDescription = stringResource(id = R.string.pixabay_photo),
                 contentScale = ContentScale.Crop,
-                alignment = Alignment.TopCenter,
-                //error = painterResource(id = R.drawable.ic_broken_image),
+                alignment = Alignment.TopCenter
+                // error = painterResource(id = R.drawable.ic_broken_image),
             )
 
             Box(
@@ -64,11 +59,7 @@ fun ImageCard(
                     .fillMaxSize()
                     .background(
                         brush = Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Transparent,
-                                Color.Black
-                            ),
-                            startY = 299f,
+                            colors = listOf(Color.Transparent, Color.Black), startY = 299f
                         )
                     )
             )
@@ -80,18 +71,16 @@ fun ImageCard(
                 contentAlignment = Alignment.BottomStart
             ) {
                 Column(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.Bottom
+                    modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Bottom
                 ) {
                     photo.user?.let {
-                        Text(text = it,
-                            style = MaterialTheme.typography.h3,
-                            color = Color.White
+                        Text(
+                            text = it, style = MaterialTheme.typography.h3, color = Color.White
                         )
                     }
                     photo.tags?.let {
-                        Text(text = it.uppercase(),
+                        Text(
+                            text = it.uppercase(),
                             style = MaterialTheme.typography.caption,
                             color = Color.White
                         )

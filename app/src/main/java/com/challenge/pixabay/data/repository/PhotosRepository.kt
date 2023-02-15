@@ -11,14 +11,12 @@ class PhotosRepository(
 ) : IPhotosRepository {
 
     override suspend fun getPhotos(searchTerm: String): List<IPhoto> {
-
         val response = pixabayApi.searchImages(searchTerm = searchTerm)
-        val pixabayResponse : PixabayResponse? = response.body()
+        val pixabayResponse: PixabayResponse? = response.body()
         return pixabayResponse?.photos ?: emptyList()
     }
 
     override fun getDefaultPhoto(): IPhoto {
         return LocalDataProvider.defaultPhoto
     }
-
 }

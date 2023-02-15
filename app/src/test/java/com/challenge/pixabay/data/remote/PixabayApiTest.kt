@@ -25,8 +25,7 @@ class PixabayApiTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `pixabay api test, searchImages, empty photos list expected` () = runTest {
-
+    fun `pixabay api test, searchImages, empty photos list expected`() = runTest {
         val mockResponse = MockResponse()
         mockResponse.setBody("{}")
         mockWebServer.enqueue(mockResponse)
@@ -39,8 +38,7 @@ class PixabayApiTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `pixabay api test, searchImages, returned photos list expected` () = runTest {
-
+    fun `pixabay api test, searchImages, returned photos list expected`() = runTest {
         val mockResponse = MockResponse()
         val content = Helper.readFileResource("/response.json")
         mockResponse.setResponseCode(200)
@@ -56,8 +54,7 @@ class PixabayApiTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test()
-    fun `pixabay api test, searchImages, error expected` () = runTest {
-
+    fun `pixabay api test, searchImages, error expected`() = runTest {
         val mockResponse = MockResponse()
         mockResponse.setResponseCode(404)
         mockResponse.setBody("Something went wrong")
@@ -71,8 +68,7 @@ class PixabayApiTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test(expected = IOException::class)
-    fun `pixabay api test, searchImages, timeout exception expected` () = runTest {
-
+    fun `pixabay api test, searchImages, timeout exception expected`() = runTest {
         val mockResponse = MockResponse()
         mockResponse.socketPolicy = SocketPolicy.NO_RESPONSE
         mockWebServer.enqueue(mockResponse)

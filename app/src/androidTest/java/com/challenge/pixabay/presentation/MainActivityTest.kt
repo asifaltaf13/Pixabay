@@ -13,17 +13,11 @@ class MainActivityTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
-    @Before
-    fun setUp() {
-
-    }
-
     @Test
     fun pixabayApp_testSearchButton_expectedSearchAppBar() {
         composeTestRule.onNodeWithContentDescription("SearchFloatingActionButton").performClick()
         composeTestRule.onNodeWithContentDescription("SearchAppBarSearchIcon").assertIsDisplayed()
     }
-
 
     /*
     The purpose of this test if to check if the app is behaving perfectly in performing searches
@@ -53,6 +47,5 @@ class MainActivityTest {
 
         // check three cards shown
         composeTestRule.onAllNodesWithTag(TestTags.ImageCard).assertCountEquals(3)
-
     }
 }

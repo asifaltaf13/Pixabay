@@ -11,7 +11,6 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.MockitoAnnotations
 
-
 class AppViewModelTest {
 
     private lateinit var viewModel: AppViewModel
@@ -36,36 +35,37 @@ class AppViewModelTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `app view model, view model attempts to get photos, expected request status is success`() = runTest {
-
-        assertThat(viewModel.uiState.value.requestStatus is IRequestStatus.Loading).isTrue()
-        viewModel.getPhotos("")
-        testDispatchers.standardTestDispatchers.scheduler.advanceUntilIdle()
-        assertThat(viewModel.uiState.value.requestStatus is IRequestStatus.Success).isTrue()
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun `app view model, view model attempts to get photos, expected request status is error`() = runTest {
-
-        assertThat(viewModel.uiState.value.requestStatus is IRequestStatus.Loading).isTrue()
-        viewModel.getPhotos(fakeRepository.fakeHttpExceptionTerm)
-        testDispatchers.standardTestDispatchers.scheduler.advanceUntilIdle()
-        assertThat(viewModel.uiState.value.requestStatus is IRequestStatus.Error).isTrue()
-    }
+    fun `app view model, view model attempts to get photos, expected request status is success`() =
+        runTest {
+            assertThat(viewModel.uiState.value.requestStatus is IRequestStatus.Loading).isTrue()
+            viewModel.getPhotos("")
+            testDispatchers.standardTestDispatchers.scheduler.advanceUntilIdle()
+            assertThat(viewModel.uiState.value.requestStatus is IRequestStatus.Success).isTrue()
+        }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `app view model, view model attempts to get photos, expected list with 2 photos`() = runTest {
+    fun `app view model, view model attempts to get photos, expected request status is error`() =
+        runTest {
+            assertThat(viewModel.uiState.value.requestStatus is IRequestStatus.Loading).isTrue()
+            viewModel.getPhotos(fakeRepository.fakeHttpExceptionTerm)
+            testDispatchers.standardTestDispatchers.scheduler.advanceUntilIdle()
+            assertThat(viewModel.uiState.value.requestStatus is IRequestStatus.Error).isTrue()
+        }
 
-        assertThat(viewModel.uiState.value.requestStatus is IRequestStatus.Loading).isTrue()
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `app view model, view model attempts to get photos, expected list with 2 photos`() =
+        runTest {
+            assertThat(viewModel.uiState.value.requestStatus is IRequestStatus.Loading).isTrue()
 
-        viewModel.getPhotos("two")
-        testDispatchers.standardTestDispatchers.scheduler.advanceUntilIdle()
-        assertThat(viewModel.uiState.value.requestStatus is IRequestStatus.Success).isTrue()
+            viewModel.getPhotos("two")
+            testDispatchers.standardTestDispatchers.scheduler.advanceUntilIdle()
+            assertThat(viewModel.uiState.value.requestStatus is IRequestStatus.Success).isTrue()
 
-        val requestStatus: IRequestStatus = viewModel.uiState.value.requestStatus
-        if(requestStatus is IRequestStatus.Success)
-            assertThat(2 == requestStatus.photos.size)
-    }
+            val requestStatus: IRequestStatus = viewModel.uiState.value.requestStatus
+            if (requestStatus is IRequestStatus.Success) {
+                assertThat(2 == requestStatus.photos.size)
+            }
+        }
 }

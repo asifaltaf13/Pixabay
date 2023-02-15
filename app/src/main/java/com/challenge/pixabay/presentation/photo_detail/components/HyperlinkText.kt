@@ -20,15 +20,14 @@ fun HyperlinkText(
     hyperLinks: Map<String, String>,
     textStyle: TextStyle = TextStyle.Default,
     linkTextColor: Color = MaterialTheme.colors.primary,
-    //linkTextFontWeight: FontWeight = FontWeight.Normal,
-    linkTextDecoration: TextDecoration = TextDecoration.None,
-    //fontSize: TextUnit =
+    // linkTextFontWeight: FontWeight = FontWeight.Normal,
+    linkTextDecoration: TextDecoration = TextDecoration.None
+    // fontSize: TextUnit =
 ) {
     val annotatedString = buildAnnotatedString {
         append(fullText)
 
-        for((key, value) in hyperLinks){
-
+        for ((key, value) in hyperLinks) {
             val startIndex = fullText.indexOf(key)
             val endIndex = startIndex + key.length
             addStyle(

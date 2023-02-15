@@ -10,16 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.challenge.pixabay.R
 import com.challenge.pixabay.domain.model.IPhoto
 import com.challenge.pixabay.presentation.photo_detail.components.HyperlinkText
-import com.challenge.pixabay.R
 
 @Composable
 internal fun DetailContent(
-    photo: IPhoto,
+    photo: IPhoto
 ) {
     Column {
-
         User(photo.user)
 
         photo.tags?.let { DetailProperty(stringResource(R.string.tags_heading), it) }
@@ -41,7 +40,7 @@ internal fun DetailContent(
             DetailProperty(
                 label = "Image URL:",
                 value = it,
-                isLink = true,
+                isLink = true
             )
         }
     }
@@ -64,23 +63,28 @@ fun User(user: String?) {
 fun DetailProperty(
     label: String,
     value: String,
-    isLink: Boolean = false) {
-    Column(modifier = Modifier.padding(
-        start = 16.dp, end = 16.dp, bottom = 16.dp)) {
+    isLink: Boolean = false
+) {
+    Column(
+        modifier = Modifier.padding(
+            start = 16.dp,
+            end = 16.dp,
+            bottom = 16.dp
+        )
+    ) {
         Divider()
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
             Text(
                 text = label,
                 modifier = Modifier.height(24.dp),
-                style = MaterialTheme.typography.caption,
+                style = MaterialTheme.typography.caption
             )
         }
 
-        if(isLink)
-        {
+        if (isLink) {
             HyperlinkText(
                 fullText = value,
-                hyperLinks = mutableMapOf(value to value),
+                hyperLinks = mutableMapOf(value to value)
             )
         } else {
             Text(

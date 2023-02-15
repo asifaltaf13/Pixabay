@@ -3,8 +3,8 @@ package com.challenge.pixabay.presentation.photos_list
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.challenge.pixabay.domain.model.IPhoto
-import com.challenge.pixabay.presentation.AppUiState
 import com.challenge.pixabay.presentation.AppContentType
+import com.challenge.pixabay.presentation.AppUiState
 
 @Composable
 fun PhotosGrid(
@@ -15,7 +15,6 @@ fun PhotosGrid(
     onBackPressedFromDetails: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     if (contentType == AppContentType.LIST_ONLY) {
         ListOnlyContent(
             photos = photos,
@@ -26,12 +25,7 @@ fun PhotosGrid(
         )
     } else {
         ListAndDetailContent(
-            photos = photos,
-            uiState = uiState,
-            onCardClick = onPhotoCardClick,
-            modifier = modifier
+            photos = photos, uiState = uiState, onCardClick = onPhotoCardClick, modifier = modifier
         )
     }
 }
-
-

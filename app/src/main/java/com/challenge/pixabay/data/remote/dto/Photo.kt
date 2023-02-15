@@ -6,7 +6,7 @@ import com.challenge.pixabay.domain.model.IPhoto
  * Photo response class should extend this class
  */
 
-sealed class Photo : IPhoto{
+sealed class Photo : IPhoto {
     abstract override var id: Int?
     abstract override var tags: String?
     abstract override var previewURL: String?

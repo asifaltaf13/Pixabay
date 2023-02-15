@@ -19,7 +19,6 @@ class GetPhotosUseCaseTest {
 
     @Before
     internal fun setup() {
-
         fakeRepository = FakeRepository()
         getPhotosUseCase = GetPhotosUseCase(fakeRepository)
         getDefaultPhotoUseCase = GetDefaultPhotoUseCase(fakeRepository)
@@ -27,12 +26,12 @@ class GetPhotosUseCaseTest {
 
     @Test
     fun `get photos use case, get all photos, correct returned list`() = runBlocking {
-
         val requestStatus: IRequestStatus = getPhotosUseCase("")
 
         lateinit var returnedList: List<IPhoto>
-        if (requestStatus is IRequestStatus.Success)
+        if (requestStatus is IRequestStatus.Success) {
             returnedList = requestStatus.photos
+        }
 
         for (i in returnedList.indices) {
             assertThat(returnedList[i].id == i).isTrue()
@@ -40,29 +39,31 @@ class GetPhotosUseCaseTest {
     }
 
     @Test
-    fun `get photos use case, get photos, throws HttpException with localized message`() = runBlocking {
+    fun `get photos use case, get photos, throws HttpException with localized message`() =
+        runBlocking {
+            val expectedErrorMessage = fakeRepository.fakeHttpExceptionMessage
+            val requestStatus: IRequestStatus =
+                getPhotosUseCase(fakeRepository.fakeHttpExceptionTerm)
+            lateinit var resultErrorMessage: String
 
-        val expectedErrorMessage = fakeRepository.fakeHttpExceptionMessage
-        val requestStatus: IRequestStatus = getPhotosUseCase(fakeRepository.fakeHttpExceptionTerm)
-        lateinit var resultErrorMessage: String
+            if (requestStatus is IRequestStatus.Error) {
+                resultErrorMessage = requestStatus.message
+            }
 
-        if(requestStatus is IRequestStatus.Error)
-            resultErrorMessage = requestStatus.message
-
-        assertThat(
-            resultErrorMessage == expectedErrorMessage
-        ).isTrue()
-    }
+            assertThat(
+                resultErrorMessage == expectedErrorMessage
+            ).isTrue()
+        }
 
     @Test
     fun `get photos use case, get photos, throws IoException`() = runBlocking {
-
         val expectedErrorMessage = "Couldn't reach server, Check your internet connection."
         val requestStatus: IRequestStatus = getPhotosUseCase(fakeRepository.fakeIoExceptionTerm)
         lateinit var resultErrorMessage: String
 
-        if(requestStatus is IRequestStatus.Error)
+        if (requestStatus is IRequestStatus.Error) {
             resultErrorMessage = requestStatus.message
+        }
 
         assertThat(
             resultErrorMessage == expectedErrorMessage
@@ -71,12 +72,12 @@ class GetPhotosUseCaseTest {
 
     @Test
     fun `get photos use case, get specific photos, correct returned list`() = runBlocking {
-
         val requestStatus: IRequestStatus = getPhotosUseCase("two")
 
         lateinit var returnedList: List<IPhoto>
-        if (requestStatus is IRequestStatus.Success)
+        if (requestStatus is IRequestStatus.Success) {
             returnedList = requestStatus.photos
+        }
 
         for (i in returnedList.indices) {
             assertThat(returnedList.size == 2).isTrue()

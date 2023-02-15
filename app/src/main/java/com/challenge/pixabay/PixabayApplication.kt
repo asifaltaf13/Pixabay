@@ -27,16 +27,18 @@ class PixabayApplication : Application(), ImageLoaderFactory {
             private set
     }
 
-    fun hasNetwork() : Boolean {
+    fun hasNetwork(): Boolean {
         return instance.isNetworkConnected()
     }
 
     private fun isNetworkConnected(): Boolean {
         var isConnected = false // Initial Value
-        val connectivityManager = instance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            instance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
-        if (activeNetwork != null && activeNetwork.isConnected)
+        if (activeNetwork != null && activeNetwork.isConnected) {
             isConnected = true
+        }
         return isConnected
     }
 

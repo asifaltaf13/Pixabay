@@ -26,7 +26,7 @@ fun ListAndDetailContent(
         LazyVerticalGrid(
             modifier = Modifier.weight(1f),
             columns = GridCells.Adaptive(150.dp),
-            contentPadding = PaddingValues(4.dp),
+            contentPadding = PaddingValues(4.dp)
         ) {
             itemsIndexed(photos) { _, photo ->
                 ImageCard(

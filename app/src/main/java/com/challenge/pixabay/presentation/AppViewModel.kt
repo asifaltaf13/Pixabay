@@ -28,7 +28,7 @@ class AppViewModel(
     private val _uiState = MutableStateFlow(
         AppUiState(
             currentSelectedPhoto = getDefaultPhoto(),
-            searchTerm = "",
+            searchTerm = ""
         )
     )
     val uiState: StateFlow<AppUiState> = _uiState.asStateFlow()
@@ -90,7 +90,7 @@ class AppViewModel(
     fun onOpenDialogClicked(photo: IPhoto) {
         _uiState.update {
             it.copy(
-                showDialog = true,
+                showDialog = true
             )
         }
         clickedPhoto = photo // keeping the photo until user confirmation

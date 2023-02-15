@@ -6,7 +6,7 @@ import com.challenge.pixabay.domain.model.IPhoto
 
 data class AppUiState(
 
-    //search related
+    // search related
     val searchTerm: String = defaultSearchTerm,
     val orientation: String = "horizontal",
     val order: String = "latest",
@@ -17,7 +17,7 @@ data class AppUiState(
     val currentSelectedPhoto: IPhoto,
     val isShowingHomepage: Boolean = true,
     val showDialog: Boolean = false,
-    val searchWidgetState : SearchWidgetState = SearchWidgetState.CLOSED
+    val searchWidgetState: SearchWidgetState = SearchWidgetState.CLOSED
 )
 
 enum class SearchWidgetState {

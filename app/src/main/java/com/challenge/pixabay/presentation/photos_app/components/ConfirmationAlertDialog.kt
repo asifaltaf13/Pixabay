@@ -15,12 +15,10 @@ fun ConfirmationAlertDialog(
         AlertDialog(
             onDismissRequest = onDismiss,
             confirmButton = {
-                TextButton(onClick = onConfirm)
-                { Text(text = "OK") }
+                TextButton(onClick = onConfirm) { Text(text = "OK") }
             },
             dismissButton = {
-                TextButton(onClick = onDismiss)
-                { Text(text = "Cancel") }
+                TextButton(onClick = onDismiss) { Text(text = "Cancel") }
             },
             title = { Text(text = "Please confirm") },
             text = { Text(text = "Do you want to view the details?") }

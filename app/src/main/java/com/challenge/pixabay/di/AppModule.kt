@@ -1,14 +1,15 @@
 package com.challenge.pixabay.di
 
 import android.util.Log
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.challenge.pixabay.PixabayApplication
 import com.challenge.pixabay.common.Constants.BASE_URL
 import com.challenge.pixabay.common.Constants.cacheSize
 import com.challenge.pixabay.data.common.Constants
+import com.challenge.pixabay.data.remote.IPixabayApi
 import com.challenge.pixabay.data.repository.PhotosRepository
 import com.challenge.pixabay.domain.repository.IPhotosRepository
-import com.challenge.pixabay.data.remote.IPixabayApi
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -27,7 +28,8 @@ class AppModule : IAppModule {
         retrofit().create(IPixabayApi::class.java)
     }
 
-    private fun retrofit() : Retrofit {
+    @OptIn(ExperimentalSerializationApi::class)
+    private fun retrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient())
@@ -35,7 +37,7 @@ class AppModule : IAppModule {
             .build()
     }
 
-    private fun okHttpClient() : OkHttpClient {
+    private fun okHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .cache(cache())
             .addInterceptor(httpLoggingInterceptor())
@@ -53,7 +55,6 @@ class AppModule : IAppModule {
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return httpLoggingInterceptor
     }
-
 
     companion object {
 
@@ -80,15 +81,12 @@ class AppModule : IAppModule {
         class OfflineInterceptor : Interceptor {
             private val TAG = "OfflineInterceptor"
 
-
             override fun intercept(chain: Interceptor.Chain): Response {
                 Log.d(TAG, "called.")
 
-
                 var request = chain.request()
 
-                if(!PixabayApplication.instance.hasNetwork())
-                {
+                if (!PixabayApplication.instance.hasNetwork()) {
                     val cacheControl = CacheControl.Builder()
                         .maxStale(7, TimeUnit.DAYS)
                         .build()

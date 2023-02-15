@@ -50,11 +50,11 @@ class FakeRepository : IPhotosRepository {
     }
 
     override suspend fun getPhotos(searchTerm: String): List<IPhoto> {
-
-        if (searchTerm == fakeHttpExceptionTerm)
+        if (searchTerm == fakeHttpExceptionTerm) {
             throw FakeHttpException(localizedMessage = fakeHttpExceptionMessage)
-        else if (searchTerm == fakeIoExceptionTerm)
+        } else if (searchTerm == fakeIoExceptionTerm) {
             throw FakeIOException()
+        }
 
         if (searchTerm.isEmpty()) return fakePhotos
         if (searchTerm == "fruits") return fakePhotos
@@ -67,12 +67,12 @@ class FakeRepository : IPhotosRepository {
     override fun getDefaultPhoto(): IPhoto {
         return LocalDataProvider.defaultPhoto
     }
-
 }
 
 class FakeHttpException(localizedMessage: String) : HttpException(
     Response.error<ResponseBody>(
-        500, "some content".toResponseBody("plain/text".toMediaTypeOrNull())
+        500,
+        "some content".toResponseBody("plain/text".toMediaTypeOrNull())
     )
 ) {
     override val message = localizedMessage

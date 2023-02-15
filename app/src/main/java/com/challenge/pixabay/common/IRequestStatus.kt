@@ -7,4 +7,3 @@ sealed interface IRequestStatus {
     data class Error(val message: String) : IRequestStatus
     object Loading : IRequestStatus
 }
-

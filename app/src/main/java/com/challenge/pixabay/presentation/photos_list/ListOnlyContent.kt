@@ -27,9 +27,7 @@ fun ListOnlyContent(
     onBackPressedFromDetails: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-    if(uiState.isShowingHomepage){
-
+    if (uiState.isShowingHomepage) {
         // Start the animation immediately.
         val visibleState = remember { MutableTransitionState(false).apply { targetState = true } }
         AnimatedVisibility(
@@ -42,7 +40,7 @@ fun ListOnlyContent(
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(150.dp),
                 modifier = modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(4.dp),
+                contentPadding = PaddingValues(4.dp)
             ) {
                 itemsIndexed(photos) { _, photo ->
                     ImageCard(
@@ -71,5 +69,4 @@ fun ListOnlyContent(
             modifier = modifier
         )
     }
-
 }

@@ -38,8 +38,8 @@ internal fun LargePhoto(
                 .build(),
             contentDescription = stringResource(id = R.string.pixabay_photo),
             contentScale = ContentScale.Crop,
-            //placeholder = painterResource(id = R.drawable.loading_img),
-            error = error,
+            // placeholder = painterResource(id = R.drawable.loading_img),
+            error = error
         )
     }
 }

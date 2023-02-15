@@ -30,16 +30,15 @@ fun SearchAppBar(
     searchTerm: String,
     onTextChange: (String) -> Unit,
     onCloseClicked: () -> Unit,
-    onSearchClicked: (String) -> Unit,
+    onSearchClicked: (String) -> Unit
 ) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp),
-        elevation = AppBarDefaults.TopAppBarElevation,
+        elevation = AppBarDefaults.TopAppBarElevation
         //color = MaterialTheme.colors.primary
     ) {
-
         val focusRequester = FocusRequester()
         val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -59,9 +58,9 @@ fun SearchAppBar(
             },
             placeholder = {
                 Text(
-                    //modifier = Modifier.alpha(ContentAlpha.medium),
-                    text = "Search here...",
-                    //color = Color.White
+                    // modifier = Modifier.alpha(ContentAlpha.medium),
+                    text = "Search here..."
+                    // color = Color.White
                 )
             },
             textStyle = TextStyle(fontSize = MaterialTheme.typography.subtitle1.fontSize),
@@ -76,7 +75,7 @@ fun SearchAppBar(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Search,
-                        contentDescription = stringResource(R.string.search_appbar_search_icon),
+                        contentDescription = stringResource(R.string.search_appbar_search_icon)
                         //tint = Color.White
                     )
                 }
@@ -90,10 +89,11 @@ fun SearchAppBar(
                         } else {
                             onCloseClicked()
                         }
-                    }) {
+                    }
+                ) {
                     Icon(
                         imageVector = Icons.Default.Close,
-                        contentDescription = stringResource(id = R.string.search_appbar_close_icon),
+                        contentDescription = stringResource(id = R.string.search_appbar_close_icon)
                         //tint = Color.White
                     )
                 }
@@ -105,7 +105,7 @@ fun SearchAppBar(
                 onSearch = {
                     onSearchClicked(searchTerm)
                 }
-            ),
+            )
 //            colors = TextFieldDefaults.textFieldColors(
 //                backgroundColor = Color.Transparent,
 //                cursorColor = Color.White.copy(alpha = ContentAlpha.medium)
@@ -116,6 +116,5 @@ fun SearchAppBar(
             focusRequester.requestFocus()
             onDispose { }
         }
-
     }
 }

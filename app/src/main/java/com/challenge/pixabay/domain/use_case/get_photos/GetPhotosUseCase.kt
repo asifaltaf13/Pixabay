@@ -2,7 +2,6 @@ package com.challenge.pixabay.domain.use_case.get_photos
 
 import com.challenge.pixabay.common.IRequestStatus
 import com.challenge.pixabay.domain.repository.IPhotosRepository
-import org.json.JSONException
 import retrofit2.HttpException
 import java.io.IOException
 

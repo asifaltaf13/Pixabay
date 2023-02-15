@@ -5,6 +5,6 @@ import com.challenge.pixabay.data.remote.dto.PixabayPhoto
 object LocalDataProvider {
 
     val defaultPhoto = PixabayPhoto(
-        id = -1,
+        id = -1
     )
 }

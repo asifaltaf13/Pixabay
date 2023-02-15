@@ -6,6 +6,6 @@ object Constants {
 
     // pixabay searchImages params
     const val imageType = "photo"
-    const val order = "latest"
-    const val perPage = 100
+    const val order = "popular"
+    const val perPage = 200
 }

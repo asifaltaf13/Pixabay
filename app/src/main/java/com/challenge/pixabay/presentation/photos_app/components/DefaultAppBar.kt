@@ -19,7 +19,7 @@ fun DefaultAppBar(
             Text(
                 stringResource(R.string.app_name),
                 style = MaterialTheme.typography.h2,
-                //color = MaterialTheme.colors.secondary
+                color = MaterialTheme.colors.primary
             )
         },
         actions = {

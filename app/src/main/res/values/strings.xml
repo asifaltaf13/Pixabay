@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Pixabay</string>
+    <string name="app_name">Search Photos!</string>
     <string name="loading_failed">Failed to load</string>
     <string name="retry">Retry</string>
     <string name="loading">Loading</string>
-    <string name="pixabay_photo">Pixabay photo</string>
+    <string name="pixabay_photo">Photo</string>
     <string name="search_icon">Search Icon</string>
     <string name="user_heading">User:</string>
     <string name="tags_heading">Tags:</string>

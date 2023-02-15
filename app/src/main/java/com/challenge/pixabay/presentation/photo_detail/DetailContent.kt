@@ -81,7 +81,6 @@ fun DetailProperty(
             HyperlinkText(
                 fullText = value,
                 hyperLinks = mutableMapOf(value to value),
-                linkTextColor = MaterialTheme.colors.primary
             )
         } else {
             Text(

@@ -1,6 +1,7 @@
 package com.challenge.pixabay.presentation.photo_detail.components
 
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,10 +19,10 @@ fun HyperlinkText(
     fullText: String,
     hyperLinks: Map<String, String>,
     textStyle: TextStyle = TextStyle.Default,
-    linkTextColor: Color = Color.Blue,
-    linkTextFontWeight: FontWeight = FontWeight.Normal,
+    linkTextColor: Color = MaterialTheme.colors.primary,
+    //linkTextFontWeight: FontWeight = FontWeight.Normal,
     linkTextDecoration: TextDecoration = TextDecoration.None,
-    fontSize: TextUnit = TextUnit.Unspecified
+    //fontSize: TextUnit =
 ) {
     val annotatedString = buildAnnotatedString {
         append(fullText)
@@ -33,8 +34,8 @@ fun HyperlinkText(
             addStyle(
                 style = SpanStyle(
                     color = linkTextColor,
-                    fontSize = fontSize,
-                    fontWeight = linkTextFontWeight,
+                    fontSize = TextUnit.Unspecified,
+                    fontWeight = FontWeight.Normal,
                     textDecoration = linkTextDecoration
                 ),
                 start = startIndex,
@@ -49,7 +50,7 @@ fun HyperlinkText(
         }
         addStyle(
             style = SpanStyle(
-                fontSize = fontSize
+                fontSize = TextUnit.Unspecified
             ),
             start = 0,
             end = fullText.length

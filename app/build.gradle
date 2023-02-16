@@ -6,23 +6,6 @@ plugins {
 }
 
 android {
-    // Loading the local properties
-    Properties localProperties = new Properties()
-    def fileName = "local.properties"
-    def localPropertiesFile = rootProject.file(fileName)
-
-    if (localPropertiesFile.exists()) {
-        localProperties.load(rootProject.file(fileName).newDataInputStream())
-    }
-
-    signingConfigs {
-        release {
-            keyAlias localProperties['KEY_ALIAS']
-            keyPassword localProperties['KEY_PASSWORD']
-            storeFile localProperties['STORE_FILE'] ? file(localProperties['STORE_FILE']) : null
-            storePassword localProperties['STORE_PASSWORD']
-        }
-    }
     namespace 'com.challenge.pixabay'
     compileSdk 33
 
@@ -39,20 +22,18 @@ android {
         }
 
         // Loading the Pixabay API Key from Local Properties into Build Configurations
+        Properties localProperties = new Properties()
+        def fileName = "local.properties"
+        def localPropertiesFile = rootProject.file(fileName)
+        localProperties.load(localPropertiesFile.newDataInputStream())
+        if(localProperties.getProperty("API_KEY") == null) throw new GradleException("API_KEY is null")
         buildConfigField "String", "API_KEY", "\"${localProperties.getProperty("API_KEY")}\""
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             debuggable false
-            if(localPropertiesFile.exists()){
-                signingConfig signingConfigs.release
-            } else {
-                signingConfig signingConfigs.debug
-            }
         }
     }
 

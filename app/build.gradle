@@ -24,7 +24,7 @@ android {
         // Loading the Pixabay API Key from Local Properties into Build Configurations
         Properties localProperties = new Properties()
         def fileName = "local.properties"
-        def localPropertiesFile = rootProject.file(fileName)
+        def localPropertiesFile = project.rootProject.file(fileName)
         localProperties.load(localPropertiesFile.newDataInputStream())
         if(localProperties.getProperty("API_KEY") == null) throw new GradleException("API_KEY is null")
         buildConfigField "String", "API_KEY", "\"${localProperties.getProperty("API_KEY")}\""

@@ -24,8 +24,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Set Secrets
-      run: |
-        echo ${{ secrets.API_KEY }}="$API_KEY" > ./local.properties
+      run: echo API_KEY=${{ secrets.API_KEY }} > ./local.properties
 
     - name: Build with Gradle
       run: ./gradlew build

@@ -22,7 +22,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Set Secrets
+      - name: Set API_KEY secret
         run: echo API_KEY=${{ secrets.API_KEY }} > ./local.properties
 
       - name: Build with Gradle
@@ -34,6 +34,7 @@ jobs:
 
       - name: Sign Release
         uses: r0adkll/sign-android-release@v1
+        id: sign_app
         with:
           releaseDirectory: app/build/outputs/bundle/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
@@ -41,15 +42,15 @@ jobs:
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
-      # Set VERSION_INFORMATION
-      - run: echo "VERSION_INFORMATION=$(${{github.workspace}}/gradlew -q printVersionInformation)" >> $GITHUB_ENV
+      - name: Set VERSION_INFORMATION
+        run: echo "VERSION_INFORMATION=$(${{github.workspace}}/gradlew -q printVersionInformation)" >> $GITHUB_ENV
 
       - name: Tag Release
         run: |
           version_name=${{ env.VERSION_INFORMATION }}
           echo "Tagging release with tag $version_name"
-          git tag $version_name release_alpha/$version_name
-          git push origin --tags
+          git tag $version_name
+          git push origin --tags -f
 
       - name: Create service_account.json
         run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
@@ -58,7 +59,7 @@ jobs:
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJson: service_account.json
-          packageName: com.jshvarts.flows
-          releaseFile: app/build/outputs/bundle/release/app-release.aab
+          packageName: com.challenge.pixabay
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
           track: alpha
           whatsNewDirectory: distribution/

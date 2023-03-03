@@ -36,38 +36,24 @@ fun HyperlinkText(
                     fontSize = TextUnit.Unspecified,
                     fontWeight = FontWeight.Normal,
                     textDecoration = linkTextDecoration
-                ),
-                start = startIndex,
-                end = endIndex
+                ), start = startIndex, end = endIndex
             )
             addStringAnnotation(
-                tag = "URL",
-                annotation = value,
-                start = startIndex,
-                end = endIndex
+                tag = "URL", annotation = value, start = startIndex, end = endIndex
             )
         }
         addStyle(
             style = SpanStyle(
                 fontSize = TextUnit.Unspecified
-            ),
-            start = 0,
-            end = fullText.length
+            ), start = 0, end = fullText.length
         )
     }
 
     val uriHandler = LocalUriHandler.current
 
-    ClickableText(
-        modifier = modifier,
-        text = annotatedString,
-        style = textStyle,
-        onClick = {
-            annotatedString
-                .getStringAnnotations("URL", it, it)
-                .firstOrNull()?.let { stringAnnotation ->
-                    uriHandler.openUri(stringAnnotation.item)
-                }
+    ClickableText(modifier = modifier, text = annotatedString, style = textStyle, onClick = {
+        annotatedString.getStringAnnotations("URL", it, it).firstOrNull()?.let { stringAnnotation ->
+            uriHandler.openUri(stringAnnotation.item)
         }
-    )
+    })
 }

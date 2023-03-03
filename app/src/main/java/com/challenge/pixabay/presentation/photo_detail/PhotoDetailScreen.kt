@@ -22,9 +22,9 @@ import com.challenge.pixabay.presentation.AppUiState
 
 @Composable
 fun PhotoDetailScreen(
+    modifier: Modifier = Modifier,
     uiState: AppUiState,
-    onBackPressed: () -> Unit = {},
-    modifier: Modifier = Modifier
+    onBackPressed: () -> Unit = {}
 ) {
     val scrollState = rememberScrollState()
     val photo = uiState.currentSelectedPhoto

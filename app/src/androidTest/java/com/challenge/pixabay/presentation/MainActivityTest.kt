@@ -4,7 +4,6 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.espresso.Espresso
 import com.challenge.pixabay.common.TestTags
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 

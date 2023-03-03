@@ -40,8 +40,8 @@ class AppModule : IAppModule {
     private fun okHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .cache(cache())
-            .addInterceptor(httpLoggingInterceptor())
-            .addNetworkInterceptor(NetworkInterceptor())
+            .addInterceptor(httpLoggingInterceptor()) // used if the network is off OR on
+            .addNetworkInterceptor(NetworkInterceptor()) // only used when network is on
             .addInterceptor(OfflineInterceptor())
             .build()
     }
@@ -67,13 +67,13 @@ class AppModule : IAppModule {
                 val response: Response = chain.proceed(chain.request())
 
                 val cacheControl = CacheControl.Builder()
-                    .maxAge(1, TimeUnit.MINUTES)
+                    .maxAge(1, TimeUnit.MINUTES) // cache for only a MAX of 1 minute if network is available
                     .build()
 
                 return response.newBuilder()
-                    .removeHeader(Constants.HEADER_PRAGMA)
-                    .removeHeader(Constants.HEADER_CACHE_CONTROL)
-                    .header(Constants.HEADER_CACHE_CONTROL, cacheControl.toString())
+                    .removeHeader(Constants.HEADER_PRAGMA) // Pragma can tell the request not use caching EVER, so we remove it
+                    .removeHeader(Constants.HEADER_CACHE_CONTROL) // Defines the cache control, so we remove the one that comes from the server
+                    .header(Constants.HEADER_CACHE_CONTROL, cacheControl.toString()) // and add our own
                     .build()
             }
         }
@@ -86,15 +86,16 @@ class AppModule : IAppModule {
 
                 var request = chain.request()
 
+                // prevent caching when network is on. For that we use the network interceptor
                 if (!PixabayApplication.instance.hasNetwork()) {
                     val cacheControl = CacheControl.Builder()
-                        .maxStale(7, TimeUnit.DAYS)
+                        .maxStale(7, TimeUnit.DAYS) // cache for a STALE of 7 days if network is available
                         .build()
 
                     request = request.newBuilder()
-                        .removeHeader(Constants.HEADER_PRAGMA)
-                        .removeHeader(Constants.HEADER_CACHE_CONTROL)
-                        .cacheControl(cacheControl)
+                        .removeHeader(Constants.HEADER_PRAGMA) // Pragma can tell the request not use caching EVER, so we remove it
+                        .removeHeader(Constants.HEADER_CACHE_CONTROL) // Defines the cache control, so we remove the one that comes from the server
+                        .cacheControl(cacheControl) // and add our own
                         .build()
                 }
 

@@ -20,56 +20,28 @@ internal fun DetailContent(
 ) {
     Column {
         User(photo.user)
-
-        photo.tags?.let { DetailProperty(stringResource(R.string.tags_heading), it) }
-        photo.likes?.let { DetailProperty(stringResource(R.string.likes_heading), it.toString()) }
-        photo.downloads?.let {
-            DetailProperty(
-                stringResource(R.string.downloads_heading),
-                it.toString()
-            )
-        }
-        photo.comments?.let {
-            DetailProperty(
-                stringResource(R.string.comments_heading),
-                it.toString()
-            )
-        }
-
-        photo.largeImageURL?.let {
-            DetailProperty(
-                label = "Image URL:",
-                value = it,
-                isLink = true
-            )
-        }
+        DetailProperty(stringResource(R.string.tags_heading), photo.tags)
+        DetailProperty(stringResource(R.string.likes_heading), photo.likes.toString())
+        DetailProperty(stringResource(R.string.downloads_heading), photo.downloads.toString())
+        DetailProperty(stringResource(R.string.comments_heading), photo.comments.toString())
+        DetailProperty(label = "Image URL:", value = photo.largeImageURL, isLink = true)
     }
 }
 
 @Composable
-fun User(user: String?) {
+fun User(user: String) {
     Column(modifier = Modifier.padding(16.dp)) {
-        user?.let {
-            Text(
-                text = it,
-                style = MaterialTheme.typography.h5,
-                fontWeight = FontWeight.Bold
-            )
-        }
+        Text(text = user, style = MaterialTheme.typography.h5, fontWeight = FontWeight.Bold)
     }
 }
 
 @Composable
 fun DetailProperty(
-    label: String,
-    value: String,
-    isLink: Boolean = false
+    label: String, value: String, isLink: Boolean = false
 ) {
     Column(
         modifier = Modifier.padding(
-            start = 16.dp,
-            end = 16.dp,
-            bottom = 16.dp
+            start = 16.dp, end = 16.dp, bottom = 16.dp
         )
     ) {
         Divider()
@@ -83,8 +55,7 @@ fun DetailProperty(
 
         if (isLink) {
             HyperlinkText(
-                fullText = value,
-                hyperLinks = mutableMapOf(value to value)
+                fullText = value, hyperLinks = mutableMapOf(value to value)
             )
         } else {
             Text(

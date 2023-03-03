@@ -1,15 +1,17 @@
 package com.challenge.pixabay.presentation.photos_list
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.*
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -18,7 +20,7 @@ import com.challenge.pixabay.domain.model.IPhoto
 import com.challenge.pixabay.presentation.AppUiState
 import com.challenge.pixabay.presentation.photo_detail.PhotoDetailScreen
 
-@OptIn(ExperimentalAnimationApi::class)
+@OptIn(ExperimentalAnimationApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun ListOnlyContent(
     photos: List<IPhoto>,
@@ -28,17 +30,16 @@ fun ListOnlyContent(
     modifier: Modifier = Modifier
 ) {
     if (uiState.isShowingHomepage) {
+
         // Start the animation immediately.
         val visibleState = remember { MutableTransitionState(false).apply { targetState = true } }
         AnimatedVisibility(
-            visibleState = visibleState,
-            enter = fadeIn(
+            visibleState = visibleState, enter = fadeIn(
                 animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy)
-            ),
-            exit = fadeOut()
+            ), exit = fadeOut()
         ) {
-            LazyVerticalGrid(
-                columns = GridCells.Adaptive(150.dp),
+            LazyVerticalStaggeredGrid(
+                columns = StaggeredGridCells.Adaptive(250.dp),
                 modifier = modifier.fillMaxWidth(),
                 contentPadding = PaddingValues(4.dp)
             ) {
@@ -52,11 +53,9 @@ fun ListOnlyContent(
                             .animateEnterExit(
                                 enter = slideInVertically(
                                     animationSpec = spring(
-                                        stiffness = Spring.StiffnessVeryLow,
+                                        stiffness = Spring.StiffnessLow,
                                         dampingRatio = Spring.DampingRatioMediumBouncy
-                                    ),
-                                    initialOffsetY = { fullHeight -> fullHeight } // staggered entrance
-                                )
+                                    ), initialOffsetY = { fullHeight -> fullHeight })
                             )
                     )
                 }
@@ -64,9 +63,7 @@ fun ListOnlyContent(
         }
     } else {
         PhotoDetailScreen(
-            uiState = uiState,
-            onBackPressed = onBackPressedFromDetails,
-            modifier = modifier
+            uiState = uiState, onBackPressed = onBackPressedFromDetails, modifier = modifier
         )
     }
 }

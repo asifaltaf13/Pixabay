@@ -8,16 +8,18 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.challenge.pixabay.R
 import com.challenge.pixabay.common.TestTags
@@ -33,58 +35,53 @@ fun ImageCard(
         modifier = modifier
             .testTag(TestTags.ImageCard)
             .fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
         elevation = 4.dp,
+        shape = RoundedCornerShape(16.dp),
         onClick = onCardClick
     ) {
         Box(
             modifier = Modifier
-                .height(200.dp)
-                .width(300.dp), contentAlignment = Alignment.Center
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
-            Loading()
-
-            AsyncImage(
+            SubcomposeAsyncImage(
+                loading = { Loading(modifier.padding(vertical = 100.dp)) },
                 modifier = Modifier.fillMaxWidth(),
-                model = ImageRequest.Builder(context = LocalContext.current).data(photo.previewURL)
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data(photo.largeImageURL)
                     .crossfade(true).build(),
                 contentDescription = stringResource(id = R.string.pixabay_photo),
                 contentScale = ContentScale.Crop,
-                alignment = Alignment.TopCenter
+                alignment = Alignment.TopCenter,
                 // error = painterResource(id = R.drawable.ic_broken_image),
             )
 
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(Color.Transparent, Color.Black), startY = 299f
-                        )
-                    )
-            )
-
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp),
-                contentAlignment = Alignment.BottomStart
+                    .background(MaterialTheme.colors.background.copy(alpha = 0.6f))
+                    .align(Alignment.BottomStart)
             ) {
                 Column(
-                    modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Bottom
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(
+                            top = 2.dp,
+                            bottom = 8.dp,
+                            start = 8.dp,
+                            end = 8.dp
+                        )
                 ) {
-                    photo.user?.let {
-                        Text(
-                            text = it, style = MaterialTheme.typography.h3, color = Color.White
-                        )
-                    }
-                    photo.tags?.let {
-                        Text(
-                            text = it.uppercase(),
-                            style = MaterialTheme.typography.caption,
-                            color = Color.White
-                        )
-                    }
+                    Text(
+                        text = photo.user,
+                        style = MaterialTheme.typography.h3,
+                        color = MaterialTheme.colors.onBackground
+                    )
+                    Text(
+                        text = photo.tags.uppercase(),
+                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colors.onBackground
+                    )
                 }
             }
         }

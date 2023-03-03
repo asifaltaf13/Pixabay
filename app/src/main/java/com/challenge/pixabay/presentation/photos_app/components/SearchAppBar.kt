@@ -8,8 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -39,18 +38,14 @@ fun SearchAppBar(
         elevation = AppBarDefaults.TopAppBarElevation
         //color = MaterialTheme.colors.primary
     ) {
-        val focusRequester = FocusRequester()
+        val focusRequester = remember { FocusRequester() }
         val keyboardController = LocalSoftwareKeyboardController.current
 
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .focusRequester(focusRequester = focusRequester)
-                .onFocusChanged {
-                    if (it.isFocused) {
-                        keyboardController?.show()
-                    }
-                }
+                .onFocusChanged { keyboardController?.show() }
                 .testTag(TestTags.SearchAppBarText),
             value = searchTerm,
             onValueChange = {
@@ -71,6 +66,7 @@ fun SearchAppBar(
                     //modifier = Modifier.alpha(ContentAlpha.medium),
                     onClick = {
                         onSearchClicked(searchTerm)
+                        keyboardController?.hide()
                     }
                 ) {
                     Icon(
@@ -86,8 +82,10 @@ fun SearchAppBar(
                     onClick = {
                         if (searchTerm.isNotEmpty()) {
                             onTextChange("")
+                            keyboardController?.show()
                         } else {
                             onCloseClicked()
+                            keyboardController?.hide()
                         }
                     }
                 ) {
@@ -104,6 +102,7 @@ fun SearchAppBar(
             keyboardActions = KeyboardActions(
                 onSearch = {
                     onSearchClicked(searchTerm)
+                    keyboardController?.hide()
                 }
             )
 //            colors = TextFieldDefaults.textFieldColors(
@@ -112,9 +111,9 @@ fun SearchAppBar(
 //            )
         )
 
-        DisposableEffect(Unit) {
-            focusRequester.requestFocus()
-            onDispose { }
+        // LaunchedEffect prevents endless focus request upon each recomposition
+        LaunchedEffect(focusRequester) {
+                focusRequester.requestFocus()
         }
     }
 }

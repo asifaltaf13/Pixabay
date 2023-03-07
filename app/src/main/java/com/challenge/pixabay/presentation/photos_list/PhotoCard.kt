@@ -3,22 +3,15 @@ package com.challenge.pixabay.presentation.photos_list
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.challenge.pixabay.R
@@ -26,7 +19,7 @@ import com.challenge.pixabay.common.TestTags
 import com.challenge.pixabay.domain.model.IPhoto
 import com.challenge.pixabay.presentation.common.loading.Loading
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ImageCard(
     photo: IPhoto, onCardClick: () -> Unit, modifier: Modifier = Modifier
@@ -35,7 +28,8 @@ fun ImageCard(
         modifier = modifier
             .testTag(TestTags.ImageCard)
             .fillMaxWidth(),
-        elevation = 4.dp,
+        //colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         shape = RoundedCornerShape(16.dp),
         onClick = onCardClick
     ) {
@@ -45,11 +39,12 @@ fun ImageCard(
             contentAlignment = Alignment.Center
         ) {
             SubcomposeAsyncImage(
-                loading = { Loading(modifier.padding(vertical = 100.dp)) },
+                loading = { Loading(modifier.padding(vertical = 50.dp)) },
                 modifier = Modifier.fillMaxWidth(),
                 model = ImageRequest.Builder(context = LocalContext.current)
                     .data(photo.largeImageURL)
-                    .crossfade(true).build(),
+                    .crossfade(500)
+                    .build(),
                 contentDescription = stringResource(id = R.string.pixabay_photo),
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.TopCenter,
@@ -59,7 +54,7 @@ fun ImageCard(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(MaterialTheme.colors.background.copy(alpha = 0.6f))
+                    .background(MaterialTheme.colorScheme.background.copy(alpha = 0.6f))
                     .align(Alignment.BottomStart)
             ) {
                 Column(
@@ -74,13 +69,13 @@ fun ImageCard(
                 ) {
                     Text(
                         text = photo.user,
-                        style = MaterialTheme.typography.h3,
-                        color = MaterialTheme.colors.onBackground
+                        style = MaterialTheme.typography.displaySmall,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                     Text(
                         text = photo.tags.uppercase(),
-                        style = MaterialTheme.typography.caption,
-                        color = MaterialTheme.colors.onBackground
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 }
             }

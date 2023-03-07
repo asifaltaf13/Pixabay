@@ -24,9 +24,8 @@ internal fun LargePhoto(
     error: Painter? = null
 ) {
     Box {
-        Loading(
-            modifier = Modifier.height(250.dp)
-        )
+
+        Loading(modifier = Modifier.height(100.dp))
 
         AsyncImage(
             modifier = Modifier

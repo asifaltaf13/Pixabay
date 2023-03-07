@@ -1,4 +1,5 @@
-import androidx.compose.material.Typography
+
+import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -13,22 +14,28 @@ val Cabin = FontFamily(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
-    defaultFontFamily = Cabin,
-    h1 = TextStyle(
+
+    displayLarge = TextStyle(
         fontWeight = FontWeight.Normal,
+        fontFamily = Cabin,
         fontSize = 30.sp
     ),
-    h2 = TextStyle(
+
+    displayMedium = TextStyle(
         fontWeight = FontWeight.Bold,
-        fontSize = 20.sp
-    ),
-    h3 = TextStyle(
-        fontWeight = FontWeight.Bold,
+        fontFamily = Cabin,
         fontSize = 20.sp
     ),
 
-    body1 = TextStyle(
+    displaySmall = TextStyle(
+        fontWeight = FontWeight.Bold,
+        fontFamily = Cabin,
+        fontSize = 20.sp
+    ),
+
+    bodyMedium = TextStyle(
         fontWeight = FontWeight.Normal,
+        fontFamily = Cabin,
         fontSize = 16.sp
     )
 )

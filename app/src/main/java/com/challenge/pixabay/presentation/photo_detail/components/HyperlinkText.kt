@@ -1,7 +1,8 @@
 package com.challenge.pixabay.presentation.photo_detail.components
 
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,7 +20,7 @@ fun HyperlinkText(
     fullText: String,
     hyperLinks: Map<String, String>,
     textStyle: TextStyle = TextStyle.Default,
-    linkTextColor: Color = MaterialTheme.colors.primary,
+    linkTextColor: Color = MaterialTheme.colorScheme.primary,
     // linkTextFontWeight: FontWeight = FontWeight.Normal,
     linkTextDecoration: TextDecoration = TextDecoration.None
     // fontSize: TextUnit =

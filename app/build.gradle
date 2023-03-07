@@ -11,10 +11,10 @@ android {
 
     defaultConfig {
         applicationId "com.challenge.pixabay"
-        minSdk 24
+        minSdk 26
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 101
+        versionName "1.01"
 
         testInstrumentationRunner "com.challenge.pixabay.TestRunner"
         vectorDrawables {
@@ -51,7 +51,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.0'
+        kotlinCompilerExtensionVersion '1.4.3'
     }
 
     packagingOptions {
@@ -69,7 +69,7 @@ dependencies {
 
     implementation "androidx.activity:activity-compose:1.6.1"
     implementation "androidx.core:core-ktx:1.9.0"
-    implementation "androidx.compose.material:material:1.3.1"
+    implementation "com.google.android.material:material:1.8.0"
     implementation "androidx.compose.material3:material3:1.0.1"
     implementation "androidx.compose.material3:material3-window-size-class:1.0.1"
     implementation "androidx.compose.ui:ui:1.3.3"
@@ -78,21 +78,20 @@ dependencies {
     implementation 'androidx.compose.foundation:foundation:1.3.1'
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
-    implementation "com.google.android.material:material:1.8.0"
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.27.0"
 
 
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0"
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0'
 
 
     // Coil
     implementation "io.coil-kt:coil-compose:2.2.2"
-    implementation "com.squareup.okhttp3:okhttp:4.10.0"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.10.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.0"
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.11'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.10"
 
 
     //
@@ -102,14 +101,13 @@ dependencies {
 
     // Local unit tests
     testImplementation "androidx.test:core:1.5.0"
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
-    testImplementation "app.cash.turbine:turbine:0.7.0"
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+    testImplementation 'app.cash.turbine:turbine:0.12.1'
     testImplementation "com.google.truth:truth:1.1.3"
-    testImplementation "com.squareup.okhttp3:mockwebserver:4.9.1"
+    testImplementation 'com.squareup.okhttp3:mockwebserver:5.0.0-alpha.11'
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
     testImplementation "junit:junit:4.13.2"
-    testImplementation 'junit:junit:4.12'
-    testImplementation "io.mockk:mockk:1.10.5"
+    testImplementation 'io.mockk:mockk:1.13.4'
 
 
     // Instrumentation Test
@@ -119,11 +117,11 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit-ktx:1.1.5"
     androidTestImplementation "androidx.test:runner:1.5.2"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
-    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.2.0"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.3.3"
     androidTestImplementation "com.google.truth:truth:1.1.3"
-    androidTestImplementation "com.squareup.okhttp3:mockwebserver:4.9.1"
-    androidTestImplementation "io.mockk:mockk-android:1.10.5"
+    androidTestImplementation 'com.squareup.okhttp3:mockwebserver:5.0.0-alpha.11'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.4'
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
     androidTestImplementation "junit:junit:4.13.2"
 

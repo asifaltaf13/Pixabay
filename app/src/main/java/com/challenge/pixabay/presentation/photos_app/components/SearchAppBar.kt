@@ -1,14 +1,16 @@
 package com.challenge.pixabay.presentation.photos_app.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -23,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.challenge.pixabay.R
 import com.challenge.pixabay.common.TestTags
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun SearchAppBar(
     searchTerm: String,
@@ -34,14 +36,13 @@ fun SearchAppBar(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .height(56.dp),
-        elevation = AppBarDefaults.TopAppBarElevation
+            .padding(horizontal = 8.dp)
         //color = MaterialTheme.colors.primary
     ) {
         val focusRequester = remember { FocusRequester() }
         val keyboardController = LocalSoftwareKeyboardController.current
 
-        TextField(
+        OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .focusRequester(focusRequester = focusRequester)
@@ -51,6 +52,11 @@ fun SearchAppBar(
             onValueChange = {
                 onTextChange(it)
             },
+            label = {
+                Text(
+                    text = "Search Term"
+                )
+            },
             placeholder = {
                 Text(
                     // modifier = Modifier.alpha(ContentAlpha.medium),
@@ -58,7 +64,7 @@ fun SearchAppBar(
                     // color = Color.White
                 )
             },
-            textStyle = TextStyle(fontSize = MaterialTheme.typography.subtitle1.fontSize),
+            textStyle = TextStyle(fontSize = MaterialTheme.typography.titleMedium.fontSize),
             singleLine = true,
             leadingIcon = {
                 IconButton(

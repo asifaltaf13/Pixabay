@@ -4,8 +4,7 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -41,7 +40,7 @@ fun LoadingAnimation(
     )
 
     CircularProgressIndicator(
-        modifier = Modifier
+        modifier = modifier
             .size(size = indicatorSize)
             .rotate(degrees = rotateAnimation)
             .border(
@@ -49,6 +48,6 @@ fun LoadingAnimation(
             ),
         progress = 1f,
         strokeWidth = 1.dp,
-        color = MaterialTheme.colors.background // Set background color
+        //color = MaterialTheme.colorScheme.background // Set background color
     )
 }

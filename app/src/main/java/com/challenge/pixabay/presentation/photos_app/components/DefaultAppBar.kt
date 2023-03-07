@@ -1,8 +1,8 @@
 package com.challenge.pixabay.presentation.photos_app.components
 
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -10,6 +10,7 @@ import androidx.compose.ui.res.stringResource
 import com.challenge.pixabay.R
 import com.challenge.pixabay.common.TestTags
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultAppBar(
     onSearchClicked: () -> Unit
@@ -18,8 +19,8 @@ fun DefaultAppBar(
         title = {
             Text(
                 stringResource(R.string.app_name),
-                style = MaterialTheme.typography.h2,
-                color = MaterialTheme.colors.primary
+                style = MaterialTheme.typography.displayMedium,
+                color = MaterialTheme.colorScheme.primary
             )
         },
         actions = {
@@ -30,10 +31,9 @@ fun DefaultAppBar(
                     imageVector = Icons.Filled.Search,
                     contentDescription = stringResource(R.string.search_icon),
                     modifier = Modifier.testTag(TestTags.DefaultAppBar),
-                    tint = MaterialTheme.colors.primary
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
-        },
-        backgroundColor = MaterialTheme.colors.background
+        }
     )
 }

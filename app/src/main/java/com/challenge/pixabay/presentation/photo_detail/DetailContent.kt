@@ -3,7 +3,10 @@ package com.challenge.pixabay.presentation.photo_detail
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material3.Divider
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -31,7 +34,11 @@ internal fun DetailContent(
 @Composable
 fun User(user: String) {
     Column(modifier = Modifier.padding(16.dp)) {
-        Text(text = user, style = MaterialTheme.typography.h5, fontWeight = FontWeight.Bold)
+        Text(
+            text = user,
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
@@ -45,11 +52,11 @@ fun DetailProperty(
         )
     ) {
         Divider()
-        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+        CompositionLocalProvider(LocalContentColor provides LocalContentColor.current.copy(alpha = 0.8f)) {
             Text(
                 text = label,
                 modifier = Modifier.height(24.dp),
-                style = MaterialTheme.typography.caption
+                style = MaterialTheme.typography.labelSmall
             )
         }
 
@@ -61,7 +68,7 @@ fun DetailProperty(
             Text(
                 text = value,
                 modifier = Modifier.height(24.dp),
-                style = MaterialTheme.typography.body1
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }

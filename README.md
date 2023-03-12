@@ -3,6 +3,34 @@
 </h1>  
 <p align="center">This repository contains the Pixabay coding challenge application.  </p>  
 
+The main purpose of this project is to showcase my coding abilities and software engineering know-how. The project can be extended to contain further features and improvements in the future.
+
+- The app is built 100% in Kotlin.  
+- The UI is designed with Jetpack Compose.  
+- MVVM architecture has been followed.  
+- Coroutines for asynchronous logic.  
+- UI updates using Kotlin StateFlows.  
+- The app follows the Material design guidelines.  
+- The app follows the DRY & SOLID best practices.  
+- The configuration change handling is implemented. (e.g. screen rotation)  
+- Based on the device size and orientation, either ListScreen is only shown, or ListScreen & DetailScreen are both shown side by side.  
+- Clean architecture design is created with a separation of concerns. (modules: presentation, domain, data, di)  
+- Tech Stack: MVVM Architecture, Android Architecture Components, Jetpack Compose, Coroutines, Retrofit, Coil.  
+  
+
+## ✅ Features: 
+- Users can search images by entering one or more words in the text field.  
+- Images are requested from the Pixabay API.  
+- A grid of images is displayed to the user.  
+- Each grid item has a thumbnail, Pixabay username, and image tags.  
+- The server responses are cached in memory and storage for offline handling.  
+- A click on the image thumbnail shows a dialog box asking for the user's confirmation to view details.  
+- In case of a positive answer, the detail screen is shown.  
+- The detail screen shows the image in the highest resolution, the name of the user, the list of image .tags, the number of likes, the number of downloads, and the number of comments.  
+- When the app starts, the search keyword "fruits" is searched by default.  
+ 
+
+
 
 ## ⚡️ Prerequisites
 ```bash  
